@@ -59,9 +59,6 @@ export default function SearchBar({ onProductSelect }: SearchBarProps) {
           type="text"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for ghee products..."
-          className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
-        />
           placeholder="Search for dairy products..."
           className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
         />
