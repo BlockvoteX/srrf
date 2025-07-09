@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Award, Truck, Star, CheckCircle, Droplets, Leaf, Heart } from 'lucide-react';
+import { Shield, Award, Truck, Star, CheckCircle, Droplets, Leaf, Heart, Milk } from 'lucide-react';
 
 export default function AboutPage() {
   return (
@@ -12,7 +12,7 @@ export default function AboutPage() {
               About <span className="text-yellow-600">SRR Farms</span>
             </h1>
             <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              Preserving ancient traditions while delivering the purest A2 cow ghee to your doorstep
+              Preserving ancient traditions while delivering the purest A2 dairy products to your doorstep
             </p>
           </div>
         </div>
@@ -34,10 +34,10 @@ export default function AboutPage() {
                 The <span className="text-yellow-600">SRR Farms</span> Story
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Founded with a vision to bring pure, traditional A2 cow ghee to modern households, SRR Farms represents a commitment to quality, authenticity, and health. Located in the heart of Shanigaram Village, Koheda Mandal, Karimnagar District, our farm is home to indigenous A2 cows that graze freely on lush green pastures.
+                Founded with a vision to bring pure, traditional A2 dairy products to modern households, SRR Farms represents a commitment to quality, authenticity, and health. Located in the heart of Shanigaram Village, Koheda Mandal, Karimnagar District, our farm is home to indigenous A2 cows and buffaloes that graze freely on lush green pastures.
               </p>
               <p className="text-lg text-gray-600 mb-6">
-                We believe that the best ghee comes from happy, healthy cows. Our indigenous breeds are raised with love and care, following ethical farming practices that have been passed down through generations. Every drop of our ghee carries the essence of traditional Indian dairy farming.
+                We believe that the best dairy products come from happy, healthy animals. Our indigenous breeds are raised with love and care, following ethical farming practices that have been passed down through generations. Every drop of our milk and ghee carries the essence of traditional Indian dairy farming.
               </p>
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="flex items-center space-x-3">
@@ -62,15 +62,93 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Why Choose SRR Cow Ghee Section */}
+      {/* Product Categories Section */}
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
-              Why Choose <span className="text-yellow-600">SRR Cow Ghee</span>
+              Our <span className="text-yellow-600">Product Range</span>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Discover what makes our A2 cow ghee the perfect choice for your family's health and wellness
+              From traditional ghee to fresh milk - discover what makes our dairy products special
+            </p>
+          </div>
+          
+          <div className="grid md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+            {/* Ghee Section */}
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+                  <Droplets className="w-6 h-6 text-yellow-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800">Premium Ghee</h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                Our ghee is made using the traditional Bilona method from pure A2 cow milk. This ancient process preserves all the natural nutrients and gives our ghee its distinctive taste and aroma.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">Traditional Bilona Method</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">100% A2 Cow Milk</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">Rich in Vitamins A, D, E, K</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">No Preservatives or Chemicals</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Milk Section */}
+            <div className="bg-white rounded-2xl shadow-lg p-8">
+              <div className="flex items-center space-x-3 mb-6">
+                <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                  <Milk className="w-6 h-6 text-blue-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800">Fresh Milk</h3>
+              </div>
+              <p className="text-gray-600 mb-6">
+                Our fresh milk is delivered daily from our farm. We offer both A2 cow milk and buffalo milk, each with its unique nutritional benefits and taste profile.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">Daily Fresh Delivery</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">A2 Cow & Buffalo Milk</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">High Protein & Calcium</span>
+                </div>
+                <div className="flex items-center space-x-3">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span className="text-gray-700">Grass-Fed Animals</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Health Benefits Section */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-800 mb-4">
+              Health <span className="text-yellow-600">Benefits</span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Discover the amazing health benefits of our pure A2 dairy products
             </p>
           </div>
           
@@ -107,60 +185,11 @@ export default function AboutPage() {
               <p className="text-gray-600">Contains antioxidants and vitamins that strengthen the immune system and promote overall wellness.</p>
             </div>
           </div>
-
-          {/* Additional Benefits */}
-          <div className="mt-12 bg-white rounded-2xl shadow-lg p-8">
-            <h3 className="text-2xl font-bold text-center mb-8">Additional Health Benefits</h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">Digestive Health</h4>
-                  <p className="text-gray-600 text-sm">Promotes healthy digestion and gut health</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">Bone Strength</h4>
-                  <p className="text-gray-600 text-sm">Rich in Vitamin K2 for strong bones</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">Skin Health</h4>
-                  <p className="text-gray-600 text-sm">Natural moisturizing and healing properties</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">Weight Management</h4>
-                  <p className="text-gray-600 text-sm">Helps in healthy weight management</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">Anti-inflammatory</h4>
-                  <p className="text-gray-600 text-sm">Natural anti-inflammatory properties</p>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <CheckCircle className="w-6 h-6 text-green-500 mt-1" />
-                <div>
-                  <h4 className="font-semibold mb-1">High Smoke Point</h4>
-                  <p className="text-gray-600 text-sm">Perfect for high-temperature cooking</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
       {/* The Bilona Method Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
             <h2 className="text-4xl font-bold text-gray-800 mb-4">
@@ -220,34 +249,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-
-          {/* Process Benefits */}
-          <div className="mt-12 bg-yellow-50 rounded-2xl p-8">
-            <h3 className="text-2xl font-bold text-center mb-6">Why the Bilona Method Matters</h3>
-            <div className="grid md:grid-cols-3 gap-6">
-              <div className="text-center">
-                <div className="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Shield className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-semibold mb-2">Preserves Nutrients</h4>
-                <p className="text-gray-600 text-sm">Maintains all natural vitamins and minerals</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-semibold mb-2">Authentic Taste</h4>
-                <p className="text-gray-600 text-sm">Rich, nutty flavor that's unmistakably pure</p>
-              </div>
-              <div className="text-center">
-                <div className="w-12 h-12 bg-yellow-600 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <Heart className="w-6 h-6 text-white" />
-                </div>
-                <h4 className="font-semibold mb-2">Better Digestion</h4>
-                <p className="text-gray-600 text-sm">Easier to digest than machine-made ghee</p>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -258,7 +259,7 @@ export default function AboutPage() {
             Experience the SRR Farms Difference
           </h2>
           <p className="text-xl text-yellow-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of satisfied customers who have made the switch to pure, traditional A2 cow ghee
+            Join thousands of satisfied customers who have made the switch to pure, traditional A2 dairy products
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a

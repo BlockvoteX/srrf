@@ -1,14 +1,15 @@
 import React from 'react';
-import { Star, ShoppingCart, Eye } from 'lucide-react';
+import { Star, ShoppingCart, Eye, Droplets, Milk } from 'lucide-react';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
 
 interface ProductCardProps {
   product: Product;
   onViewDetails: (product: Product) => void;
+  viewMode?: 'grid' | 'list';
 }
 
-export default function ProductCard({ product, onViewDetails }: ProductCardProps) {
+export default function ProductCard({ product, onViewDetails, viewMode = 'grid' }: ProductCardProps) {
   const { addToCart } = useCart();
 
   const handleAddToCart = (e: React.MouseEvent) => {
@@ -20,6 +21,93 @@ export default function ProductCard({ product, onViewDetails }: ProductCardProps
     e.stopPropagation();
     onViewDetails(product);
   };
+
+  const CategoryIcon = product.category === 'ghee' ? Droplets : Milk;
+
+  if (viewMode === 'list') {
+    return (
+      <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl group">
+        <div className="flex">
+          {/* Product Image */}
+          <div className="relative w-48 h-48 flex-shrink-0">
+            {product.badge && (
+              <div className="absolute top-4 right-4 bg-orange-500 text-white px-3 py-1 rounded-full text-xs font-semibold z-10">
+                {product.badge}
+              </div>
+            )}
+            <img
+              src={product.image}
+              alt={product.name}
+              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          {/* Product Details */}
+          <div className="flex-1 p-6 flex flex-col justify-between">
+            <div>
+              <div className="flex items-center space-x-2 mb-2">
+                <CategoryIcon className="w-4 h-4 text-yellow-600" />
+                <span className="text-sm text-gray-500 capitalize">{product.category}</span>
+              </div>
+              <h3 className="text-xl font-semibold text-gray-800 mb-1">{product.name}</h3>
+              <p className="text-gray-600 mb-3">{product.size}</p>
+              <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>
+
+              {/* Rating */}
+              <div className="flex items-center mb-4">
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, i) => (
+                    <Star
+                      key={i}
+                      className={`w-4 h-4 ${
+                        i < Math.floor(product.rating)
+                          ? 'text-yellow-400 fill-current'
+                          : i < product.rating
+                          ? 'text-yellow-400 fill-current opacity-50'
+                          : 'text-gray-300'
+                      }`}
+                    />
+                  ))}
+                </div>
+                <span className="text-gray-600 text-sm ml-2">({product.reviews})</span>
+              </div>
+            </div>
+
+            <div className="flex items-center justify-between">
+              {/* Price */}
+              <div className="flex items-center space-x-2">
+                <span className="text-2xl font-bold text-yellow-600">₹{product.price}</span>
+                {product.originalPrice && (
+                  <span className="text-gray-500 line-through text-sm">₹{product.originalPrice}</span>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="flex space-x-2">
+                <button
+                  onClick={handleViewDetails}
+                  className="px-4 py-2 border-2 border-yellow-600 text-yellow-600 rounded-lg font-semibold hover:bg-yellow-600 hover:text-white transition-all duration-300"
+                >
+                  <Eye className="w-4 h-4" />
+                </button>
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!product.inStock}
+                  className={`px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${
+                    product.inStock
+                      ? 'bg-yellow-600 text-white hover:bg-yellow-700 hover:shadow-lg'
+                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                  }`}
+                >
+                  {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-2 group">
@@ -50,6 +138,10 @@ export default function ProductCard({ product, onViewDetails }: ProductCardProps
 
       {/* Product Details */}
       <div className="p-6">
+        <div className="flex items-center space-x-2 mb-2">
+          <CategoryIcon className="w-4 h-4 text-yellow-600" />
+          <span className="text-sm text-gray-500 capitalize">{product.category}</span>
+        </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-1">{product.name}</h3>
         <p className="text-gray-600 text-sm mb-3">{product.size}</p>
 

@@ -18,7 +18,8 @@ export default function SearchBar({ onProductSelect }: SearchBarProps) {
       const filtered = products.filter(product =>
         product.name.toLowerCase().includes(query.toLowerCase()) ||
         product.description.toLowerCase().includes(query.toLowerCase()) ||
-        product.size.toLowerCase().includes(query.toLowerCase())
+        product.size.toLowerCase().includes(query.toLowerCase()) ||
+        product.category.toLowerCase().includes(query.toLowerCase())
       );
       setFilteredProducts(filtered);
       setIsOpen(true);
@@ -61,6 +62,9 @@ export default function SearchBar({ onProductSelect }: SearchBarProps) {
           placeholder="Search for ghee products..."
           className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
         />
+          placeholder="Search for dairy products..."
+          className="w-full pl-10 pr-10 py-2 border border-gray-300 rounded-full focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
+        />
         {query && (
           <button
             onClick={clearSearch}
@@ -90,6 +94,7 @@ export default function SearchBar({ onProductSelect }: SearchBarProps) {
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-800">{product.name}</h4>
                     <p className="text-sm text-gray-600">{product.size}</p>
+                    <p className="text-xs text-gray-500 capitalize">{product.category}</p>
                     <p className="text-sm font-semibold text-yellow-600">₹{product.price}</p>
                   </div>
                 </button>

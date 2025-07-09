@@ -11,6 +11,7 @@ export interface Product {
   description: string;
   benefits: string[];
   inStock: boolean;
+  category: 'ghee' | 'milk';
 }
 
 export interface CartItem {
