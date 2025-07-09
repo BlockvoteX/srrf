@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import Header from './components/Header';
 import HomePage from './components/HomePage';
 import ProductsPage from './components/ProductsPage';
@@ -111,14 +112,20 @@ function App() {
   };
 
   return (
-    <CartProvider>
-      <div className="min-h-screen bg-gray-50">
-        <Header onNavigate={handleNavigate} currentPage={currentPage} />
-        {renderPage()}
-        <Cart onCheckout={handleCheckout} />
-        <ProductDetail product={selectedProduct} onClose={handleCloseProductDetail} />
-      </div>
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <div className="min-h-screen bg-gray-50">
+          <Header 
+            onNavigate={handleNavigate} 
+            currentPage={currentPage} 
+            onViewProduct={handleViewProduct}
+          />
+          {renderPage()}
+          <Cart onCheckout={handleCheckout} />
+          <ProductDetail product={selectedProduct} onClose={handleCloseProductDetail} />
+        </div>
+      </CartProvider>
+    </AuthProvider>
   );
 }
 

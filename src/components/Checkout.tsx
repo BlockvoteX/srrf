@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowLeft, CreditCard, Truck, Shield, CheckCircle } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 import { CustomerInfo } from '../types';
 
 interface CheckoutProps {
@@ -10,11 +11,12 @@ interface CheckoutProps {
 
 export default function Checkout({ onBack, onOrderComplete }: CheckoutProps) {
   const { state, getTotalPrice, clearCart } = useCart();
+  const { user, userProfile } = useAuth();
   const [step, setStep] = useState(1);
   const [customerInfo, setCustomerInfo] = useState<CustomerInfo>({
-    name: '',
-    email: '',
-    phone: '',
+    name: userProfile?.displayName || '',
+    email: user?.email || '',
+    phone: userProfile?.phone || '',
     address: '',
     notes: ''
   });
@@ -98,6 +100,7 @@ export default function Checkout({ onBack, onOrderComplete }: CheckoutProps) {
                         value={customerInfo.name}
                         onChange={handleInputChange}
                         required
+                        disabled={!!userProfile?.displayName}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter your full name"
                       />
@@ -112,6 +115,7 @@ export default function Checkout({ onBack, onOrderComplete }: CheckoutProps) {
                         value={customerInfo.email}
                         onChange={handleInputChange}
                         required
+                        disabled={!!user?.email}
                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
                         placeholder="Enter your email"
                       />
@@ -128,6 +132,7 @@ export default function Checkout({ onBack, onOrderComplete }: CheckoutProps) {
                       value={customerInfo.phone}
                       onChange={handleInputChange}
                       required
+                      disabled={!!userProfile?.phone}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-transparent transition-all duration-200"
                       placeholder="Enter your phone number"
                     />

@@ -1,16 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingCart, Menu, X, Store } from 'lucide-react';
+import { ShoppingCart, Menu, X, Store, User, Search as SearchIcon } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
+import LoginModal from './auth/LoginModal';
+import SignupModal from './auth/SignupModal';
+import UserProfile from './UserProfile';
+import SearchBar from './SearchBar';
+import { Product } from '../types';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
   currentPage: string;
+  onViewProduct: (product: Product) => void;
 }
 
-export default function Header({ onNavigate, currentPage }: HeaderProps) {
+export default function Header({ onNavigate, currentPage, onViewProduct }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+  const [showSignup, setShowSignup] = useState(false);
+  const [showProfile, setShowProfile] = useState(false);
+  const [showMobileSearch, setShowMobileSearch] = useState(false);
   const { toggleCart, getTotalItems } = useCart();
+  const { user, userProfile } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,6 +60,7 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
+            <SearchBar onProductSelect={onViewProduct} />
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -63,6 +76,14 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
 
           {/* Cart and Mobile Menu */}
           <div className="flex items-center space-x-4">
+            {/* Mobile Search Button */}
+            <button
+              onClick={() => setShowMobileSearch(!showMobileSearch)}
+              className="md:hidden p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-300"
+            >
+              <SearchIcon className="w-6 h-6" />
+            </button>
+
             {/* Cart Button */}
             <button
               onClick={toggleCart}
@@ -75,6 +96,37 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
                 </span>
               )}
             </button>
+
+            {/* User Profile / Auth */}
+            {user ? (
+              <button
+                onClick={() => setShowProfile(true)}
+                className="flex items-center space-x-2 p-2 text-gray-700 hover:text-yellow-600 transition-colors duration-300"
+              >
+                <div className="w-8 h-8 bg-yellow-600 rounded-full flex items-center justify-center">
+                  <User className="w-5 h-5 text-white" />
+                </div>
+                <span className="hidden lg:block font-medium">
+                  {userProfile?.displayName || 'Profile'}
+                </span>
+              </button>
+            ) : (
+              <div className="hidden md:flex items-center space-x-2">
+                <button
+                  onClick={() => setShowLogin(true)}
+                  className="text-gray-700 hover:text-yellow-600 font-medium transition-colors duration-300"
+                >
+                  Sign In
+                </button>
+                <span className="text-gray-300">|</span>
+                <button
+                  onClick={() => setShowSignup(true)}
+                  className="bg-yellow-600 text-white px-4 py-2 rounded-full font-medium hover:bg-yellow-700 transition-colors duration-300"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
 
             {/* Mobile Menu Button */}
             <button
@@ -89,6 +141,53 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
         {/* Mobile Navigation */}
         {isMenuOpen && (
           <nav className="md:hidden mt-4 pb-4 border-t border-gray-200">
+            {/* Mobile Auth Buttons */}
+            {!user && (
+              <div className="flex space-x-2 pt-4 px-4 mb-4">
+                <button
+                  onClick={() => {
+                    setShowLogin(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex-1 text-center py-2 px-4 border border-yellow-600 text-yellow-600 rounded-lg hover:bg-yellow-50 transition-colors duration-300"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => {
+                    setShowSignup(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex-1 text-center py-2 px-4 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors duration-300"
+                >
+                  Sign Up
+                </button>
+              </div>
+            )}
+
+            {/* Mobile User Profile */}
+            {user && (
+              <div className="px-4 pt-4 mb-4">
+                <button
+                  onClick={() => {
+                    setShowProfile(true);
+                    setIsMenuOpen(false);
+                  }}
+                  className="flex items-center space-x-3 w-full p-3 bg-yellow-50 rounded-lg"
+                >
+                  <div className="w-10 h-10 bg-yellow-600 rounded-full flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
+                  <div className="text-left">
+                    <p className="font-medium text-gray-800">
+                      {userProfile?.displayName || 'Profile'}
+                    </p>
+                    <p className="text-sm text-gray-600">{user.email}</p>
+                  </div>
+                </button>
+              </div>
+            )}
+
             <div className="flex flex-col space-y-2 pt-4">
               {navItems.map((item) => (
                 <button
@@ -107,7 +206,39 @@ export default function Header({ onNavigate, currentPage }: HeaderProps) {
             </div>
           </nav>
         )}
+
+        {/* Mobile Search Bar */}
+        {showMobileSearch && (
+          <div className="md:hidden mt-4 px-4 pb-4 border-t border-gray-200">
+            <SearchBar onProductSelect={(product) => {
+              onViewProduct(product);
+              setShowMobileSearch(false);
+            }} />
+          </div>
+        )}
       </div>
+
+      {/* Modals */}
+      <LoginModal
+        isOpen={showLogin}
+        onClose={() => setShowLogin(false)}
+        onSwitchToSignup={() => {
+          setShowLogin(false);
+          setShowSignup(true);
+        }}
+      />
+      <SignupModal
+        isOpen={showSignup}
+        onClose={() => setShowSignup(false)}
+        onSwitchToLogin={() => {
+          setShowSignup(false);
+          setShowLogin(true);
+        }}
+      />
+      <UserProfile
+        isOpen={showProfile}
+        onClose={() => setShowProfile(false)}
+      />
     </header>
   );
 }

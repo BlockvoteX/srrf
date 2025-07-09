@@ -29,7 +29,7 @@ export const products: Product[] = [
     image: 'https://images.pexels.com/photos/4198019/pexels-photo-4198019.jpeg?auto=compress&cs=tinysrgb&w=400',
     rating: 4.5,
     reviews: 98,
-    badge: 'Value Pack',
+    badge: 'Best Value',
     description: 'Perfect family size pack of our premium A2 cow ghee. Made with love and traditional methods.',
     benefits: [
       'Family Size Pack',
@@ -49,7 +49,7 @@ export const products: Product[] = [
     image: 'https://images.pexels.com/photos/4198019/pexels-photo-4198019.jpeg?auto=compress&cs=tinysrgb&w=400',
     rating: 5,
     reviews: 56,
-    badge: 'Family Pack',
+    badge: 'Most Popular',
     description: 'Large family pack perfect for regular cooking. Premium quality A2 cow ghee at the best value.',
     benefits: [
       'Large Family Pack',
