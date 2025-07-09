@@ -2,6 +2,7 @@ import React from 'react';
 import { Star, ShoppingCart, Eye, Droplets, Milk } from 'lucide-react';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 interface ProductCardProps {
   product: Product;
@@ -11,10 +12,15 @@ interface ProductCardProps {
 
 export default function ProductCard({ product, onViewDetails, viewMode = 'grid' }: ProductCardProps) {
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   const handleAddToCart = (e: React.MouseEvent) => {
     e.stopPropagation();
-    addToCart(product);
+    if (user) {
+      addToCart(product);
+    } else {
+      alert('Please sign in to add items to cart');
+    }
   };
 
   const handleViewDetails = (e: React.MouseEvent) => {
@@ -94,12 +100,12 @@ export default function ProductCard({ product, onViewDetails, viewMode = 'grid' 
                   onClick={handleAddToCart}
                   disabled={!product.inStock}
                   className={`px-6 py-2 rounded-lg font-semibold transition-all duration-300 ${
-                    product.inStock
+                    product.inStock && user
                       ? 'bg-yellow-600 text-white hover:bg-yellow-700 hover:shadow-lg'
                       : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                   }`}
                 >
-                  {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                  {!product.inStock ? 'Out of Stock' : !user ? 'Sign In to Buy' : 'Add to Cart'}
                 </button>
               </div>
             </div>
@@ -185,13 +191,13 @@ export default function ProductCard({ product, onViewDetails, viewMode = 'grid' 
             onClick={handleAddToCart}
             disabled={!product.inStock}
             className={`flex-1 flex items-center justify-center space-x-2 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
-              product.inStock
+              product.inStock && user
                 ? 'bg-yellow-600 text-white hover:bg-yellow-700 hover:shadow-lg'
                 : 'bg-gray-300 text-gray-500 cursor-not-allowed'
             }`}
           >
             <ShoppingCart className="w-4 h-4" />
-            <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+            <span>{!product.inStock ? 'Out of Stock' : !user ? 'Sign In to Buy' : 'Add to Cart'}</span>
           </button>
           <button
             onClick={handleViewDetails}

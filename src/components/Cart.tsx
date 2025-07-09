@@ -1,6 +1,7 @@
 import React from 'react';
 import { X, Plus, Minus, ShoppingBag, Trash2 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 interface CartProps {
   onCheckout: () => void;
@@ -8,12 +9,18 @@ interface CartProps {
 
 export default function Cart({ onCheckout }: CartProps) {
   const { state, removeFromCart, updateQuantity, closeCart, getTotalPrice } = useCart();
+  const { user } = useAuth();
 
   if (!state.isOpen) return null;
 
   const handleCheckout = () => {
-    closeCart();
-    onCheckout();
+    if (user) {
+      closeCart();
+      onCheckout();
+    } else {
+      // Show login prompt
+      alert('Please sign in to place an order');
+    }
   };
 
   return (
@@ -96,9 +103,14 @@ export default function Cart({ onCheckout }: CartProps) {
               </div>
               <button
                 onClick={handleCheckout}
-                className="w-full bg-yellow-600 text-white py-3 rounded-lg font-semibold hover:bg-yellow-700 transition-colors duration-300"
+                className={`w-full py-3 rounded-lg font-semibold transition-colors duration-300 ${
+                  user 
+                    ? 'bg-yellow-600 text-white hover:bg-yellow-700' 
+                    : 'bg-gray-400 text-white cursor-not-allowed'
+                }`}
+                disabled={!user}
               >
-                Proceed to Checkout
+                {user ? 'Proceed to Checkout' : 'Sign In to Checkout'}
               </button>
             </div>
           )}
