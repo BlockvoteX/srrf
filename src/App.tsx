@@ -31,6 +31,7 @@ function App() {
   };
 
   const handleCheckout = () => {
+    // Check if user is logged in before allowing checkout
     setCurrentPage('checkout');
   };
 

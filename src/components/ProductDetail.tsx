@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { X, Star, ShoppingCart, Check } from 'lucide-react';
 import { Product } from '../types';
 import { useCart } from '../context/CartContext';
+import { useAuth } from '../context/AuthContext';
 
 interface ProductDetailProps {
   product: Product | null;
@@ -11,14 +12,19 @@ interface ProductDetailProps {
 export default function ProductDetail({ product, onClose }: ProductDetailProps) {
   const [quantity, setQuantity] = useState(1);
   const { addToCart } = useCart();
+  const { user } = useAuth();
 
   if (!product) return null;
 
   const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart(product);
+    if (user) {
+      for (let i = 0; i < quantity; i++) {
+        addToCart(product);
+      }
+      onClose();
+    } else {
+      alert('Please sign in to add items to cart');
     }
-    onClose();
   };
 
   return (
@@ -136,13 +142,13 @@ export default function ProductDetail({ product, onClose }: ProductDetailProps) 
                     onClick={handleAddToCart}
                     disabled={!product.inStock}
                     className={`flex-1 flex items-center justify-center space-x-2 py-3 px-6 rounded-lg font-semibold transition-all duration-300 ${
-                      product.inStock
+                      product.inStock && user
                         ? 'bg-yellow-600 text-white hover:bg-yellow-700'
                         : 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     }`}
                   >
                     <ShoppingCart className="w-5 h-5" />
-                    <span>{product.inStock ? 'Add to Cart' : 'Out of Stock'}</span>
+                    <span>{!product.inStock ? 'Out of Stock' : !user ? 'Sign In to Add to Cart' : 'Add to Cart'}</span>
                   </button>
                 </div>
 

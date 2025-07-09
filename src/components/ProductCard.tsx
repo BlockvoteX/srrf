@@ -51,10 +51,6 @@ export default function ProductCard({ product, onViewDetails, viewMode = 'grid' 
           {/* Product Details */}
           <div className="flex-1 p-6 flex flex-col justify-between">
             <div>
-              <div className="flex items-center space-x-2 mb-2">
-                <CategoryIcon className="w-4 h-4 text-yellow-600" />
-                <span className="text-sm text-gray-500 capitalize">{product.category}</span>
-              </div>
               <h3 className="text-xl font-semibold text-gray-800 mb-1">{product.name}</h3>
               <p className="text-gray-600 mb-3">{product.size}</p>
               <p className="text-gray-600 text-sm mb-4 line-clamp-2">{product.description}</p>

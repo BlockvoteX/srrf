@@ -91,7 +91,6 @@ export default function SearchBar({ onProductSelect }: SearchBarProps) {
                   <div className="flex-1">
                     <h4 className="font-medium text-gray-800">{product.name}</h4>
                     <p className="text-sm text-gray-600">{product.size}</p>
-                    <p className="text-xs text-gray-500 capitalize">{product.category}</p>
                     <p className="text-sm font-semibold text-yellow-600">₹{product.price}</p>
                   </div>
                 </button>
